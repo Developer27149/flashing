@@ -1,11 +1,21 @@
-import type { TRawDownloadSearchQuery } from "~interfaces"
+import type { IFile, TRawDownloadSearchQuery } from "~interfaces"
+
+import { store } from "~store"
 
 export const searchByQuery = (
   queryString: TRawDownloadSearchQuery = {}
 ): Promise<IFile[]> => {
   return new Promise((resolve) => {
-    chrome.downloads.search(queryString, (res) => {
-      resolve(res)
-    })
+    chrome.downloads.search(queryString, resolve)
   })
+}
+
+export const resolveDownloadFileName = (name: string) =>
+  name.replace(/^\/.*\//, "")
+
+export const calcDownloadProgress = (current: number, total: number) => {
+  if (current !== 0 && total !== 0) {
+    return `${((current / total) * 100).toFixed(1).toString()}%`
+  }
+  return "*"
 }

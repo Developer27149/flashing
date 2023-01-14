@@ -3,7 +3,8 @@ import resso from "resso"
 
 export const store = resso({
   query: "",
+  recentFile: [] as IFile,
   searching: true,
   items: [] as IFile[],
-  defaultDownloadPath: ""
+  speedRecord: {} as Record<string, number>
 })

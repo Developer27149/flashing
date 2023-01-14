@@ -1,35 +1,28 @@
+import DownloadItem from "./DownloadItem"
 import Recent from "./Recent"
+import { resolveDownloadItemFileName } from "~utils"
 import { searchByQuery } from "~utils/download"
 import { store } from "~store"
 import { useEffect } from "react"
+import useEvent from "~hooks/useEvent"
 
 export default function Main() {
+  const { items, query } = store
   useEffect(() => {
-    chrome.downloads.onCreated.addListener(async () => {
-      // when created a new download item
-      store.items = await searchByQuery()
-    })
-    searchByQuery()
-      .then((items) => {
-        store.items = items
-        store.defaultDownloadPath =
-          items.length > 0 ? items[0].filename.match(/\/.*\//)?.[0] : ""
-        console.log(items.slice(0, 1))
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [])
+    const _items = items.filter((i) => i.filename.indexOf(query) !== -1)
+    console.log(_items)
+  }, [query, items])
+  useEvent()
   return (
     <>
-      <h1>
-        Welcome to your{" "}
-        <a href="https://www.plasmo.com" target="_blank">
-          Plasmo
-        </a>{" "}
-        Extension!
-      </h1>
       <Recent />
+      {items.length > 0 &&
+        items
+          .filter(
+            (i) =>
+              i.filename.includes(query) && i.exists && i.filename.length > 0
+          )
+          .map((item) => <DownloadItem item={item} key={item.id} />)}
     </>
   )
 }
