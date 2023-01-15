@@ -3,12 +3,27 @@ import "dayjs/locale/zh-cn"
 import type { IFile } from "~interfaces"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
+import { searchByQuery } from "./download"
+import { store } from "~store"
 
 dayjs.extend(relativeTime)
 dayjs.locale("zh-cn")
 
 export const calcRelativeDate = (dateNumber: number) => {
   return dayjs(dateNumber).fromNow()
+}
+
+export const intervalTask = async () => {
+  const { speedRecord } = store
+  const _items = await searchByQuery()
+  store.items = _items
+  _items.forEach(({ bytesReceived, id, state }) => {
+    if (state === "in_progress") {
+      store.speedRecord[id] = bytesReceived - (speedRecord[id] ?? 0)
+    } else {
+      store.speedRecord[id] = undefined
+    }
+  })
 }
 
 export const resolveDownloadItemFileName = (file: IFile) => {
@@ -29,7 +44,14 @@ export const rawSizeToHumanSize = (total: number, fix = 1) => {
 }
 
 export const copyLinkToClipboard = (str: string) =>
-  navigator.clipboard.writeText(str)
+  navigator.clipboard
+    .writeText(str)
+    .then(() => {
+      console.log("copy success")
+    })
+    .catch((e) => {
+      console.log(e)
+    })
 
 export const openFile = (id: number) => chrome.downloads.open(id)
 
@@ -45,3 +67,9 @@ export const openFileByState = (file: IFile) => {
 
 export const resolveDefaultValue = (str: string, backupStr = "未知") =>
   str.length > 0 ? str : backupStr
+
+export const deleteDownloadItemById = (id: number) =>
+  chrome.downloads.removeFile(id).then(intervalTask)
+
+export const eraseDownloadItemById = (id: number) =>
+  chrome.downloads.erase({ id })

@@ -19,9 +19,7 @@ export default function Layout({ children }: IProps) {
       </div>
       {searching && <Search />}
       <MacScrollbar className="flex-grow flex flex-col">
-        <div className="flex-grow p-2 pt-3 bg-white text-gray-700 rounded-t-[16px]">
-          {children}
-        </div>
+        <div className="flex-grow p-2  bg-white text-gray-700 ">{children}</div>
       </MacScrollbar>
       <div className="p-2 text-center">还没想好</div>
     </div>

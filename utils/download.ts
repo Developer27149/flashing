@@ -6,7 +6,12 @@ export const searchByQuery = (
   queryString: TRawDownloadSearchQuery = {}
 ): Promise<IFile[]> => {
   return new Promise((resolve) => {
-    chrome.downloads.search(queryString, resolve)
+    chrome.downloads.search(queryString, (items) => {
+      items.sort(
+        (prev, cur) => new Date(cur.startTime) - new Date(prev.startTime)
+      )
+      resolve(items)
+    })
   })
 }
 
