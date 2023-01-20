@@ -6,6 +6,8 @@ import { store } from "~store"
 export default function DownloadItems() {
   const { items, recentFile, query } = store
   const currentItems = useMemo(() => {
+    console.log(items, recentFile);
+    
     return items.filter(
       (item) => item.filename.includes(query) && item.id !== recentFile?.id && item.exists && item.filename.length > 0
     )

@@ -1,22 +1,14 @@
-import {
-  calcRelativeDate,
-  copyLinkToClipboard,
-  openFile,
-  openFileByState,
-  openFolderOfTargetFile,
-  rawSizeToHumanSize,
-  resolveDownloadItemFileName
-} from "~utils"
-import { useEffect, useMemo, useRef, useState } from "react"
-
-import { AiOutlinePauseCircle } from "react-icons/ai"
-import { BsLink45Deg } from "react-icons/bs"
-import DownloadItemType from "./DownloadItemType"
-import { FcFlashAuto } from "react-icons/fc"
-import { TfiDownload } from "react-icons/tfi"
+import { store } from "~store"
+import { calcRelativeDate, copyLinkToClipboard, openFile, openFileByState, openFolderOfTargetFile, rawSizeToHumanSize, resolveDownloadItemFileName } from "~utils"
 import { calcDownloadProgress } from "~utils/download"
 import clsx from "clsx"
-import { store } from "~store"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { AiOutlinePauseCircle } from "react-icons/ai"
+import { BsLink45Deg } from "react-icons/bs"
+import { FcFlashAuto } from "react-icons/fc"
+import { TfiDownload } from "react-icons/tfi"
+
+import DownloadItemType from "./DownloadItemType"
 
 export default function Recent() {
   const { items, io, recentFile, speedRecord } = store
