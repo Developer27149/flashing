@@ -31,9 +31,11 @@ export default function DownloadItemType({ mime }: IProps) {
     "application/vnd.rar": <GoFileZip />,
     "application/x-7z-compressed": <GoFileZip />,
     "application/octet-stream": <TfiVideoClapper />,
-    "image/svg+xml": <TfiImage />
+    "image/svg+xml": <TfiImage />,
+    "image/webp": <CiImageOn />,
+    "image/avif": <CiImageOn />
   }
 
-  if (iconMap[mime] !== undefined) return <CiStreamOn />
+  if (iconMap[mime] === undefined) return <CiStreamOn />
   return iconMap[mime]
 }

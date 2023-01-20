@@ -12,7 +12,7 @@ export default function useEvent() {
   useEffect(() => {
     chrome.downloads.setShelfEnabled(false)
     intervalTask()
-    const timer = setInterval(intervalTask, 10 * 1000)
+    const timer = setInterval(intervalTask, 1 * 1000)
     return () => {
       clearInterval(timer)
     }

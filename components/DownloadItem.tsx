@@ -14,6 +14,7 @@ import DownloadItemType from "./DownloadItemType"
 import type { IFile } from "~interfaces"
 import { IoIosClose } from "react-icons/io"
 import { RiDeleteBin6Line } from "react-icons/ri"
+import clsx from "clsx"
 import { useMemo } from "react"
 
 interface IProps {
@@ -22,13 +23,13 @@ interface IProps {
 
 export default function DownloadItem({ item }: IProps) {
   return (
-    <div className="flex items-center gap-2 p-1 my-1 rounded-md border border-purple-50">
-      <div className="p-3 border border-[#4363a830] text-[#436368] rounded-full my-container relative overflow-hidden">
+    <div className="flex items-center gap-2 py-1 my-1 rounded-md border border-purple-100 relative overflow-hidden">
+      {/* <div className="p-3 border border-[#4363a830] text-[#436368] rounded-full my-container relative overflow-hidden">
         <div className="z-10 relative text-[#3273fd]">
           <DownloadItemType mime={item.mime} />
         </div>
         <div
-          className="w-full bg-[#23a71e36] absolute bottom-0 left-0 right-0"
+          className="w-full bg-[#1e59a736] absolute bottom-0 left-0 right-0"
           style={{
             height: `${calcDownloadProgress(
               item.bytesReceived,
@@ -36,11 +37,34 @@ export default function DownloadItem({ item }: IProps) {
             )}`,
             zIndex: 1
           }}></div>
+      </div> */}
+      {item.state === "in_progress" && (
+        <>
+          <div
+            className="absolute bottom-0 h-[4px] bg-[#3273fd50]"
+            style={{
+              width: calcDownloadProgress(item.bytesReceived, item.totalBytes)
+            }}></div>
+          <div
+            className="absolute bottom-0 right-0 h-[4px] bg-[#3273fd20]"
+            style={{
+              width: calcDownloadProgress(
+                item.bytesReceived,
+                item.totalBytes,
+                true
+              )
+            }}></div>
+        </>
+      )}
+      <div className="p-1 text-[20px] z-10 text-[#3273fd]">
+        <DownloadItemType mime={item.mime} />
       </div>
-      <div className="w-[226px] opacity-80 hover:opacity-100 transition-all">
+      <div className="flex-grow transition-all">
         <div className="flex gap-1 items-center cursor-pointer">
           <section
-            className="ellipsis mr-auto max-w-[205px]"
+            className={clsx("ellipsis mr-auto max-w-[205px] z-10", {
+              "line-through": item.exists === false
+            })}
             onClick={() => openFileByState(item)}>
             {resolveDownloadFileName(item.filename)}
           </section>

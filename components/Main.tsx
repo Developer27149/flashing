@@ -6,7 +6,7 @@ export default function Main() {
   useEvent()
   return (
     <>
-      <Recent />
+      {/* <Recent /> */}
       <DownloadItems />
     </>
   )
