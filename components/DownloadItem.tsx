@@ -56,14 +56,18 @@ export default function DownloadItem({ item }: IProps) {
             }}></div>
         </>
       )}
-      <div className="p-1 text-[20px] z-10 text-[#3273fd]">
+      <div
+        className={clsx(
+          "p-1 text-[20px] z-10",
+          item.exists ? "text-[#3273fd]" : "text-gray-400"
+        )}>
         <DownloadItemType mime={item.mime} />
       </div>
       <div className="flex-grow transition-all">
         <div className="flex gap-1 items-center cursor-pointer">
           <section
             className={clsx("ellipsis mr-auto max-w-[205px] z-10", {
-              "line-through": item.exists === false
+              "line-through opacity-50": item.exists === false
             })}
             onClick={() => openFileByState(item)}>
             {resolveDownloadFileName(item.filename)}

@@ -9,4 +9,5 @@ export const store = resso({
   searching: true,
   items: [] as IFile[],
   speedRecord: {} as Record<string, number>
+  // menuFilter: (item: IFile) =>
 })

@@ -11,22 +11,23 @@ import { store } from "~store"
 export default function Menu() {
   const { menu } = store
   const iconMap = {
-    "in-progress": <AiOutlineArrowDown />,
+    in_progress: <AiOutlineArrowDown />,
     error: <VscRunErrors />,
     all: <IoIosFlash />,
     completed: <CiBeerMugFull />,
     setting: <IoIosSettings />
   }
   return (
-    <div className="flex items-center px-1 justify-evenly">
+    <div className="flex items-center px-1 justify-evenly z-20">
       {Object.keys(iconMap).map((key, idx) => (
         <motion.div
           key={idx}
           style={{ border: menu === key ? "6px solid #3273fd" : "" }}
           animate={{ y: menu === key ? -10 : 0, scale: menu === key ? 1.2 : 1 }}
           transition={{ duration: 0.3 }}
+          onClick={() => (store.menu = key)}
           className={clsx(
-            "p-2 rounded-full text-[18px] relative border-[#3273fd]",
+            "p-2 rounded-full text-[18px] relative border-[#3273fd] cursor-pointer",
             {
               "opacity-50": menu !== key,
               "bg-white text-[#3273fd]": menu === key,

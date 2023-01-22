@@ -14,7 +14,7 @@ export default function Layout({ children }: IProps) {
   const { searching } = store
   return (
     <div className="flex flex-col w-[300px] max-h-[600px] h-[800px] bg-[#3273fd] text-white py-3 pb-0">
-      <div className="flex justify-between cursor-pointer px-3">
+      <div className="flex justify-between cursor-pointer px-3 pb-4">
         <HiOutlineMenuAlt1 />
         <HiSearch onClick={() => (store.searching = !searching)} />
       </div>
