@@ -30,7 +30,7 @@ export default function DownloadItemType({ mime }: IProps) {
     "application/vnd.ms-powerpoint": <SiMicrosoftpowerpoint />,
     "application/vnd.rar": <GoFileZip />,
     "application/x-7z-compressed": <GoFileZip />,
-    "application/octet-stream": <TfiVideoClapper />,
+    "application/octet-stream": <CiStreamOn />,
     "image/svg+xml": <TfiImage />,
     "image/webp": <CiImageOn />,
     "image/avif": <CiImageOn />

@@ -7,14 +7,17 @@ import {
   eraseDownloadItemById,
   openFileByState,
   openFolderOfTargetFile,
-  resolveDefaultValue
+  resolveDefaultValue,
+  resumeDownloadItem
 } from "~utils"
 
+import { BiRefresh } from "react-icons/bi"
 import DownloadItemType from "./DownloadItemType"
 import type { IFile } from "~interfaces"
 import { IoIosClose } from "react-icons/io"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import clsx from "clsx"
+import { errorTranslateRecord } from "~utils/error"
 import { useMemo } from "react"
 
 interface IProps {
@@ -67,7 +70,7 @@ export default function DownloadItem({ item }: IProps) {
         <div className="flex gap-1 items-center cursor-pointer">
           <section
             className={clsx("ellipsis mr-auto max-w-[205px] z-10", {
-              "line-through opacity-50": item.exists === false
+              "line-through opacity-50": item.exists === false || item.error
             })}
             onClick={() => openFileByState(item)}>
             {resolveDownloadFileName(item.filename)}
@@ -85,6 +88,14 @@ export default function DownloadItem({ item }: IProps) {
           <BsFolder2Open onClick={() => openFolderOfTargetFile(item.id)} />
           <BsLink45Deg onClick={() => copyLinkToClipboard(item.url)} />
           <RiDeleteBin6Line onClick={() => deleteDownloadItemById(item.id)} />
+          {item.canResume && (
+            <BiRefresh onClick={() => resumeDownloadItem(item.id)} />
+          )}
+          {item.error && (
+            <div className="text-[12px] transform scale-75">
+              {errorTranslateRecord[item.error]}
+            </div>
+          )}
           <div className="text-[12px] transform scale-75 ml-auto">
             {calcRelativeDate(item.startTime)}
           </div>

@@ -21,7 +21,12 @@ export interface IFile extends DownloadItem {
   // isHidden: boolean
 }
 
-export type TMenu = "setting" | "all" | "in_progress" | "completed" | "error"
+export type TMenu =
+  | "setting"
+  | "all"
+  | "in_progress"
+  | "completed"
+  | "interrupted"
 
 /**
  * file example

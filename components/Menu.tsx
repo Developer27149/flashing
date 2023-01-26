@@ -12,7 +12,7 @@ export default function Menu() {
   const { menu } = store
   const iconMap = {
     in_progress: <AiOutlineArrowDown />,
-    error: <VscRunErrors />,
+    interrupted: <VscRunErrors />,
     all: <IoIosFlash />,
     completed: <CiBeerMugFull />,
     setting: <IoIosSettings />

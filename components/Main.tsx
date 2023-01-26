@@ -10,6 +10,7 @@ export default function Main() {
   const component = useMemo(() => {
     if (menu === "all") return <DownloadItems />
     if (menu === "in_progress") return <DownloadItems status={"in_progress"} />
+    if (menu === "interrupted") return <DownloadItems status={"interrupted"} />
     return "default"
   }, [menu])
 
