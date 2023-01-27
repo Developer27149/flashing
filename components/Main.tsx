@@ -1,3 +1,4 @@
+import AppStore from "./appStore"
 import DownloadItems from "./DownloadItems"
 import Recent from "./Recent"
 import { store } from "~store"
@@ -11,7 +12,8 @@ export default function Main() {
     if (menu === "all") return <DownloadItems />
     if (menu === "in_progress") return <DownloadItems status={"in_progress"} />
     if (menu === "interrupted") return <DownloadItems status={"interrupted"} />
-    return "default"
+    if (menu === "setting") return "setting"
+    return <AppStore />
   }, [menu])
 
   return component

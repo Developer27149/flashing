@@ -33,7 +33,7 @@ export default function DownloadItems({ status }: IProps) {
       </div>
     )
   return (
-    <div className="pb-4">
+    <div className="p-2 pb-4">
       {currentItems.length > 0 &&
         currentItems.map((i) => {
           return <DownloadItem item={i} key={i.id} />

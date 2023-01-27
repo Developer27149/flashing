@@ -35,7 +35,7 @@ export default function Layout({ children }: IProps) {
       <div
         className="flex-grow flex flex-col overflow-scroll"
         id="items-wrapper">
-        <div className="flex-grow p-2  bg-white text-gray-700">{children}</div>
+        <div className="flex-grow bg-white text-gray-700">{children}</div>
       </div>
       <Menu />
       <Message />
