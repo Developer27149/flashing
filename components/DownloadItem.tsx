@@ -4,6 +4,7 @@ import {
   calcSizeForHuman,
   deleteDownloadItemById,
   eraseDownloadItemById,
+  pauseDownloadItem,
   resolveDownloadFileName,
   resumeDownloadItem
 } from "~utils/download"
@@ -19,6 +20,7 @@ import { BiRefresh } from "react-icons/bi"
 import DownloadItemType from "./DownloadItemType"
 import type { IFile } from "~interfaces"
 import { IoIosClose } from "react-icons/io"
+import { MdOutlinePauseCircle } from "react-icons/md"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import clsx from "clsx"
 import { errorTranslateRecord } from "~utils/error"
@@ -88,10 +90,13 @@ export default function DownloadItem({ item }: IProps) {
         {/* <section className="ellipsis text-[12px] opacity-60 transform scale-75 origin-left">
           {resolveDefaultValue(item.url)}
         </section> */}
-        <div className="flex items-center gap-2 mt-1 opacity-30 hover:opacity-100 transition-all cursor-pointer">
+        <div className="flex items-center gap-3 mt-2 opacity-30 hover:opacity-100 transition-all cursor-pointer">
           <BsFolder2Open onClick={() => openFolderOfTargetFile(item.id)} />
           <BsLink45Deg onClick={() => copyLinkToClipboard(item.url)} />
           <RiDeleteBin6Line onClick={() => deleteDownloadItemById(item.id)} />
+          {item.state === "in_progress" && item.canResume === false && (
+            <MdOutlinePauseCircle onClick={() => pauseDownloadItem(item.id)} />
+          )}
           {item.canResume && (
             <BiRefresh onClick={() => resumeDownloadItem(item.id)} />
           )}
@@ -102,7 +107,7 @@ export default function DownloadItem({ item }: IProps) {
           )}
           <div className="text-[12px] transform scale-75 ml-auto">
             {calcRelativeDate(item.startTime)}&nbsp;
-            {calcSizeForHuman(item.totalBytes)}
+            {calcSizeForHuman(item.bytesReceived)}
           </div>
         </div>
       </div>

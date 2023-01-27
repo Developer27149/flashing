@@ -23,6 +23,10 @@ export const calcDownloadProgress = (
   total: number,
   reverse = false
 ) => {
+  if (total === -1) {
+    if (reverse) return "0%"
+    return "100%"
+  }
   if (current !== 0 && total !== 0) {
     if (reverse)
       return `${((1 - current / total) * 100).toFixed(1).toString()}%`
@@ -39,7 +43,7 @@ export const calcSizeForHuman = (size: number) => {
     return `${(size / 1024 / 1024 / 1024).toFixed(1)}G`.replace(".0", "")
   if (size > 1024 * 1024)
     return `${(size / 1024 / 1024).toFixed(1)}M`.replace(".0", "")
-  return `${(size / 1024).toFixed(0)}kb`
+  return `${(size / 1024).toFixed(0)}k`
 }
 
 export const deleteDownloadItemById = (id: number) =>
@@ -52,3 +56,5 @@ export const downloadResourceByUrl = (url: string) =>
   chrome.downloads.download({ url })
 
 export const resumeDownloadItem = (id: number) => chrome.downloads.resume(id)
+
+export const pauseDownloadItem = (id: number) => chrome.downloads.pause(id)

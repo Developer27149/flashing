@@ -20,16 +20,20 @@ export default function DownloadItems({ status }: IProps) {
     )
   }, [items, recentFile, query])
   useEffect(() => {
-    console.log(
-      currentItems,
-      currentItems.filter((i) => i.filename.includes(query))
-    )
-  }, [currentItems, query])
+    const count = currentItems.filter((i) => i.state === "in_progress").length
+    if (count > 0) {
+      chrome.action.setBadgeText({
+        text: `${count}`
+      })
+    }
+  }, [currentItems])
   if (currentItems.length === 0)
     return (
       <div>
         <img src={EmptySvg} />
-        <section className="opacity-60 text-center py-8">空落落的...</section>
+        <section className="opacity-60 text-center py-8">
+          暂无{status === "in_progress" ? "正在下载的项目" : "下载出错的项目"}
+        </section>
       </div>
     )
   return (
