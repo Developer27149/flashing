@@ -1,14 +1,22 @@
-import { store } from "~store"
-import { calcRelativeDate, copyLinkToClipboard, openFile, openFileByState, openFolderOfTargetFile, rawSizeToHumanSize, resolveDownloadItemFileName } from "~utils"
-import { calcDownloadProgress } from "~utils/download"
-import clsx from "clsx"
+import {
+  calcRelativeDate,
+  copyLinkToClipboard,
+  openFile,
+  openFileByState,
+  openFolderOfTargetFile,
+  rawSizeToHumanSize,
+  resolveDownloadItemFileName
+} from "~utils"
 import { useEffect, useMemo, useRef, useState } from "react"
+
 import { AiOutlinePauseCircle } from "react-icons/ai"
 import { BsLink45Deg } from "react-icons/bs"
+import DownloadItemType from "./DownloadItemType"
 import { FcFlashAuto } from "react-icons/fc"
 import { TfiDownload } from "react-icons/tfi"
-
-import DownloadItemType from "./DownloadItemType"
+import { calcDownloadProgress } from "~utils/download"
+import clsx from "clsx"
+import { store } from "~store"
 
 export default function Recent() {
   const { items, io, recentFile, speedRecord } = store
@@ -57,7 +65,7 @@ export default function Recent() {
             )}`
           }}
           className={clsx(
-            "absolute top-0 bottom-0 left-0 h-full bg-[#3273fd] rounded-sm"
+            "absolute top-0 bottom-0 left-0 h-full bg-[var(--theme)] rounded-sm"
           )}></div>
         <div className="flex gap-2 w-full px-2 items-start z-10">
           <div className="p-2 rounded-full bg-[#d8efff] text-[18px]">

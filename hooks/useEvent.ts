@@ -9,10 +9,12 @@ import { useEffect } from "react"
 export default function useEvent() {
   // Just be easy...
   const { query, speedRecord } = store
+
   useEffect(() => {
     chrome.downloads.setShelfEnabled(false)
     intervalTask()
     const timer = setInterval(intervalTask, 0.5 * 1000)
+
     return () => {
       clearInterval(timer)
     }

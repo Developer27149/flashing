@@ -3,6 +3,7 @@ import type { IFile, TMenu } from "~interfaces"
 import resso from "resso"
 
 export const store = resso({
+  themeColor: "",
   menu: "all" as TMenu,
   message: "",
   downloadUrl: "",

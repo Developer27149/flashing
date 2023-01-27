@@ -22,7 +22,7 @@ export interface IFile extends DownloadItem {
 }
 
 export type TMenu =
-  | "setting"
+  | "contact"
   | "all"
   | "in_progress"
   | "completed"

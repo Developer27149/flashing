@@ -1,8 +1,8 @@
-import { IoIosFlash, IoIosSettings } from "react-icons/io"
+import { AiOutlineArrowDown, AiOutlineMessage } from "react-icons/ai"
 
-import { AiOutlineArrowDown } from "react-icons/ai"
 import { CiBeerMugFull } from "react-icons/ci"
 import { FcPodiumWithAudience } from "react-icons/fc"
+import { IoIosFlash } from "react-icons/io"
 import { VscRunErrors } from "react-icons/vsc"
 import clsx from "clsx"
 import { motion } from "framer-motion"
@@ -15,7 +15,7 @@ export default function Menu() {
     interrupted: <VscRunErrors />,
     all: <IoIosFlash />,
     completed: <CiBeerMugFull />,
-    setting: <IoIosSettings />
+    contact: <AiOutlineMessage />
   }
   return (
     <div className="flex items-center px-1 justify-evenly z-20">
@@ -30,7 +30,7 @@ export default function Menu() {
             "p-2 rounded-full text-[18px] relative border-[#3273fd] cursor-pointer",
             {
               "opacity-50": menu !== key,
-              "bg-white text-[#3273fd]": menu === key,
+              "bg-white text-[var(--theme)]": menu === key,
               "text-white": menu !== key
             }
           )}>

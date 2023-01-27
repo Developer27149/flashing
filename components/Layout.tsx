@@ -1,9 +1,12 @@
+import { ReactNode, useEffect } from "react"
+
 import CreateDownloadItem from "./CreateDownloadItem"
 import { HiSearch } from "react-icons/hi"
+import Loading from "./appStore/Loading"
 import Menu from "./Menu"
 import Message from "~components/Message"
-import type { ReactNode } from "react"
 import Search from "./Search"
+import { Storage } from "@plasmohq/storage"
 import { TfiTrash } from "react-icons/tfi"
 import { VscDiffAdded } from "react-icons/vsc"
 import { store } from "~store"
@@ -12,9 +15,30 @@ interface IProps {
   children: ReactNode
 }
 export default function Layout({ children }: IProps) {
-  const { searching, showAddDownloadComponent, query } = store
+  const { searching, showAddDownloadComponent, query, themeColor } = store
+
+  useEffect(() => {
+    const storage = new Storage()
+    storage.get("theme").then((value) => {
+      if (value) {
+        store.themeColor = value
+      } else {
+        store.themeColor = "#3273fd"
+        storage.set("theme", "#3273fd")
+      }
+    })
+  }, [])
+
+  if (themeColor === "")
+    return (
+      <div className="w-[300px] h-[200px]">
+        <Loading raw={true} />
+      </div>
+    )
   return (
-    <div className="flex flex-col w-[300px] max-h-[600px] h-[800px] bg-[#3273fd] text-white py-3 pb-0">
+    <div
+      style={{ "--theme": themeColor }}
+      className="flex flex-col w-[300px] max-h-[600px] h-[800px] bg-[var(--theme)] text-white py-3 pb-0">
       <div className="flex justify-between cursor-pointer px-3 pb-4 text-white text-[16px]">
         <VscDiffAdded
           onClick={() =>

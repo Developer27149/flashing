@@ -1,4 +1,4 @@
-export default function Loading() {
+export default function Loading({ raw }: { raw?: boolean }) {
   return (
     <div>
       <div
@@ -30,9 +30,11 @@ export default function Loading() {
     </div>
 </div>`
         }}></div>
-      <div className="absolute bottom-[100px] left-[110px] text-gray-500 flash-wrapper">
-        正在寻找服务器
-      </div>
+      {raw !== true && (
+        <div className="absolute bottom-[100px] left-[110px] text-gray-500 flash-wrapper">
+          正在寻找服务器
+        </div>
+      )}
     </div>
   )
 }

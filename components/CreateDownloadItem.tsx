@@ -55,7 +55,7 @@ export default function CreateDownloadItem() {
           <button onClick={onCancel}>取消</button>
           <button
             onClick={onStartAction}
-            className="bg-[#3273fd] text-white p-1 rounded-sm">
+            className="bg-[var(--theme)] text-white p-1 rounded-sm">
             确定
           </button>
         </div>
