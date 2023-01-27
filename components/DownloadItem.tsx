@@ -1,14 +1,18 @@
 import { BsFolder2Open, BsLink45Deg } from "react-icons/bs"
-import { calcDownloadProgress, resolveDownloadFileName } from "~utils/download"
+import {
+  calcDownloadProgress,
+  calcSizeForHuman,
+  deleteDownloadItemById,
+  eraseDownloadItemById,
+  resolveDownloadFileName,
+  resumeDownloadItem
+} from "~utils/download"
 import {
   calcRelativeDate,
   copyLinkToClipboard,
-  deleteDownloadItemById,
-  eraseDownloadItemById,
   openFileByState,
   openFolderOfTargetFile,
-  resolveDefaultValue,
-  resumeDownloadItem
+  resolveDefaultValue
 } from "~utils"
 
 import { BiRefresh } from "react-icons/bi"
@@ -69,7 +73,7 @@ export default function DownloadItem({ item }: IProps) {
       <div className="flex-grow transition-all">
         <div className="flex gap-1 items-center cursor-pointer">
           <section
-            className={clsx("ellipsis mr-auto max-w-[205px] z-10", {
+            className={clsx("ellipsis mr-auto max-w-[220px] z-10", {
               "line-through opacity-50": item.exists === false || item.error
             })}
             onClick={() => openFileByState(item)}>
@@ -97,7 +101,8 @@ export default function DownloadItem({ item }: IProps) {
             </div>
           )}
           <div className="text-[12px] transform scale-75 ml-auto">
-            {calcRelativeDate(item.startTime)}
+            {calcRelativeDate(item.startTime)}&nbsp;
+            {calcSizeForHuman(item.totalBytes)}
           </div>
         </div>
       </div>

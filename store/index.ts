@@ -4,10 +4,12 @@ import resso from "resso"
 
 export const store = resso({
   menu: "all" as TMenu,
+  message: "",
+  downloadUrl: "",
+  showAddDownloadComponent: false,
   query: "",
   recentFile: [] as IFile,
-  searching: true,
+  searching: false,
   items: [] as IFile[],
   speedRecord: {} as Record<string, number>
-  // menuFilter: (item: IFile) =>
 })

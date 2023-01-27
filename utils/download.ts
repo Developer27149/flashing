@@ -10,7 +10,7 @@ export const searchByQuery = (
       items.sort(
         (prev, cur) => new Date(cur.startTime) - new Date(prev.startTime)
       )
-      resolve(items)
+      resolve(items.filter((i) => i.filename.length > 0))
     })
   })
 }
@@ -31,3 +31,24 @@ export const calcDownloadProgress = (
   }
   return "*"
 }
+
+export const calcSizeForHuman = (size: number) => {
+  // if(size)
+  if (size === -1) return "未知"
+  if (size > 1024 * 1024 * 1024)
+    return `${(size / 1024 / 1024 / 1024).toFixed(1)}G`.replace(".0", "")
+  if (size > 1024 * 1024)
+    return `${(size / 1024 / 1024).toFixed(1)}M`.replace(".0", "")
+  return `${(size / 1024).toFixed(0)}kb`
+}
+
+export const deleteDownloadItemById = (id: number) =>
+  chrome.downloads.removeFile(id).then(intervalTask)
+
+export const eraseDownloadItemById = (id: number) =>
+  chrome.downloads.erase({ id })
+
+export const downloadResourceByUrl = (url: string) =>
+  chrome.downloads.download({ url })
+
+export const resumeDownloadItem = (id: number) => chrome.downloads.resume(id)

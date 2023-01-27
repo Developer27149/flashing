@@ -45,15 +45,15 @@ export const rawSizeToHumanSize = (total: number, fix = 1) => {
   return `${(total / 1024 / 1024 / 1024).toFixed(fix)}G`
 }
 
-export const copyLinkToClipboard = (str: string) =>
-  navigator.clipboard
-    .writeText(str)
-    .then(() => {
-      console.log("copy success")
-    })
-    .catch((e) => {
-      console.log(e)
-    })
+export const copyLinkToClipboard = async (url: string) => {
+  try {
+    await navigator.clipboard.writeText(url)
+    store.message = "链接复制成功!"
+    store.downloadUrl = url
+  } catch (error) {
+    console.log(e)
+  }
+}
 
 export const openFile = (id: number) => chrome.downloads.open(id)
 
@@ -75,14 +75,3 @@ export const openFileByState = (file: IFile) => {
 
 export const resolveDefaultValue = (str: string, backupStr = "未知") =>
   str.length > 0 ? str : backupStr
-
-export const deleteDownloadItemById = (id: number) =>
-  chrome.downloads.removeFile(id).then(intervalTask)
-
-export const eraseDownloadItemById = (id: number) =>
-  chrome.downloads.erase({ id })
-
-export const downloadResourceByUrl = (url: string) =>
-  chrome.downloads.download({ url })
-
-export const resumeDownloadItem = (id: number) => chrome.downloads.resume(id)

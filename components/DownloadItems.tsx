@@ -13,17 +13,18 @@ export default function DownloadItems({ status }: IProps) {
   const { items, recentFile, query } = store
 
   const currentItems = useMemo(() => {
-    return items.filter((item) =>
-      item.filename.includes(query) &&
-      item.filename.length > 0 &&
-      status !== undefined
-        ? item.state === status
-        : true
+    return items.filter(
+      (item) =>
+        item.filename.includes(query) &&
+        (status !== undefined ? item.state === status : true)
     )
   }, [items, recentFile, query])
   useEffect(() => {
-    console.log(currentItems)
-  }, [currentItems])
+    console.log(
+      currentItems,
+      currentItems.filter((i) => i.filename.includes(query))
+    )
+  }, [currentItems, query])
   if (currentItems.length === 0)
     return (
       <div>

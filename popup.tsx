@@ -1,5 +1,4 @@
 import "./style.css"
-import "mac-scrollbar/dist/mac-scrollbar.css"
 
 import Layout from "~components/Layout"
 import Main from "~components/Main"

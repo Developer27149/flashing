@@ -18,3 +18,11 @@
 .ms-track .ms-thumb {
   background: "red" !important;
 }
+
+#items-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+button:active {
+  transform: translateY(1px);
+}
