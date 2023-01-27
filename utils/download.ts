@@ -21,9 +21,10 @@ export const resolveDownloadFileName = (name: string) =>
 export const calcDownloadProgress = (
   current: number,
   total: number,
-  reverse = false
+  reverse = false,
+  isDownloading = false
 ) => {
-  if (total === -1) {
+  if (total === 0 && isDownloading === true) {
     if (reverse) return "0%"
     return "100%"
   }

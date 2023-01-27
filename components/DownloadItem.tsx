@@ -52,7 +52,12 @@ export default function DownloadItem({ item }: IProps) {
           <div
             className="absolute bottom-0 h-[4px] bg-[#3273fd50]"
             style={{
-              width: calcDownloadProgress(item.bytesReceived, item.totalBytes)
+              width: calcDownloadProgress(
+                item.bytesReceived,
+                item.totalBytes,
+                false,
+                item.state === "in_progress"
+              )
             }}></div>
           <div
             className="absolute bottom-0 right-0 h-[4px] bg-[#3273fd20]"

@@ -25,6 +25,8 @@ export default function DownloadItems({ status }: IProps) {
       chrome.action.setBadgeText({
         text: `${count}`
       })
+    } else {
+      chrome.action.setBadgeText({ text: "" })
     }
   }, [currentItems])
   if (currentItems.length === 0)
